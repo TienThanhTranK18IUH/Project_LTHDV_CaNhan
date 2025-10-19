@@ -9,7 +9,9 @@
    ![alt text](public/img/5.png)
    ![alt text](public/img/6.png)
 5. Get product
-   ![alt text](public/img/7.png)
+   ![alt text](public/img/7.jpg)
 6. Buy product
-   ![alt text](public/img/8.png)
-   ![alt text](public/img/9.png)
+   ![alt text](public/img/8.jpg)
+   ![alt text](public/img/9.jpg)
+   ![alt text](public/img/10.jpg)
+   ![alt text](public/img/11.jpg)

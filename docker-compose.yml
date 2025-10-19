@@ -1,0 +1,59 @@
+version: "3.8"
+
+services:
+  rabbitmq:
+    image: rabbitmq:3-management
+    container_name: rabbitmq
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+
+  mongo:
+    image: mongo
+    container_name: mongodb
+    ports:
+      - "27017:27017"
+
+  auth:
+    build: ./auth
+    container_name: auth_service
+    ports:
+      - "3000:3000"
+    depends_on:
+      - mongo
+    environment:
+      - MONGODB_AUTH_URI=mongodb://mongodb:27017/auth_db
+
+  product:
+    build: ./product
+    container_name: product_service
+    ports:
+      - "3001:3001"
+    depends_on:
+      - mongo
+      - rabbitmq
+    environment:
+      - MONGODB_PRODUCT_URI=mongodb://mongodb:27017/product
+      - RABBITMQ_URI=amqp://rabbitmq:5672
+
+  order:
+    build: ./order
+    container_name: order_service
+    ports:
+      - "3002:3002"
+    depends_on:
+      - mongo
+      - rabbitmq
+    environment:
+      - MONGODB_ORDER_URI=mongodb://mongodb:27017/order
+      - RABBITMQ_URI=amqp://rabbitmq:5672
+
+  api-gateway:
+    build: ./api-gateway
+    container_name: api_gateway
+    ports:
+      - "3003:3003"
+    depends_on:
+      - auth
+      - product
+      - order

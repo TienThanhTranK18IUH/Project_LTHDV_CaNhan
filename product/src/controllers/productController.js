@@ -28,10 +28,10 @@ class ProductController {
       }
 
       await product.save({ timeout: 30000 });
-
+      console.log(`[PRODUCT CREATED] ${product.name} - $${product.price}`);
       res.status(201).json(product);
     } catch (error) {
-      console.error(error);
+      console.error("Error creating product:", error);
       res.status(500).json({ message: "Server error" });
     }
   }
